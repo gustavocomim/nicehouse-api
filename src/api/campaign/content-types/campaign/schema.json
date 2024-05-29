@@ -1,0 +1,126 @@
+{
+  "kind": "collectionType",
+  "collectionName": "campaigns",
+  "info": {
+    "singularName": "campaign",
+    "pluralName": "campaigns",
+    "displayName": "campaign",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "text"
+    },
+    "main_message": {
+      "type": "text"
+    },
+    "expected_delivery_date": {
+      "type": "date"
+    },
+    "details_history": {
+      "type": "boolean"
+    },
+    "details_testimonials": {
+      "type": "boolean"
+    },
+    "details_media": {
+      "type": "boolean"
+    },
+    "details_others": {
+      "type": "text"
+    },
+    "url_site_landing_page": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "text"
+    },
+    "special_requirement": {
+      "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "progress",
+        "finished",
+        "canceled"
+      ],
+      "default": "progress"
+    },
+    "company_company": {
+      "type": "string"
+    },
+    "company_email": {
+      "type": "string"
+    },
+    "company_phone": {
+      "type": "string"
+    },
+    "company_brand_description": {
+      "type": "string"
+    },
+    "campaing_type": {
+      "type": "string"
+    },
+    "campaing_budget": {
+      "type": "string"
+    },
+    "campaing_paymentDeadline": {
+      "type": "string"
+    },
+    "campaing_duration": {
+      "type": "string"
+    },
+    "campaing_characteristics": {
+      "type": "string"
+    },
+    "campaing_campaingTheme": {
+      "type": "string"
+    },
+    "campaing_indicator": {
+      "type": "string"
+    },
+    "campaing_restritions": {
+      "type": "string"
+    },
+    "campaing_restritions_description": {
+      "type": "string"
+    },
+    "campaing_allowed": {
+      "type": "text"
+    },
+    "campaing_notalloed": {
+      "type": "text"
+    },
+    "campaing_videoSpecs": {
+      "type": "string"
+    },
+    "campaing_creative": {
+      "type": "string"
+    },
+    "campaing_tom": {
+      "type": "string"
+    },
+    "campaing_logistic": {
+      "type": "string"
+    },
+    "campaing_videoObs": {
+      "type": "text"
+    },
+    "campaing_objective": {
+      "type": "string"
+    }
+  }
+}

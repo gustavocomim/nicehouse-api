@@ -1,0 +1,112 @@
+#@data/values
+---
+env:
+  sandbox:
+    enabled: False
+    #! 5m (5 minutes), 8h (8 hours), 7d (7 days), or 2w (2 weeks).
+    janitor:
+      ttl: 2w
+  name: master
+  hostname: 'nice-house.x-apps.services'
+  cluster:
+    issuer: 'letsencrypt-production'
+  certificate:
+    secret: tls-nice-house
+  argocd:
+    repoURL: git@gitlab.com:x-apps-projetos/global-manifests.git
+    targetRevision: HEAD
+    path: ./nice-house/manifests/master/.
+    slack:
+      notification:
+        enabled: False
+        channel: appgen  
+
+app:
+  version: '1.0.0'
+  replicas: 1
+  resources:
+    cpu: 200m
+    memory: 756Mi
+    ephemeral_storage: 200Mi
+  
+  deployment:
+    name: nice-house
+    namespace: projetos
+    image: 'DYNAMIC'
+    security: False
+    pull:
+      secret:
+        image:
+          enabled: True
+          name: docker-registry
+    container:
+      port: 80
+      target:
+        port: 1337
+
+  affinity:
+    pod_anti_affinity:
+      enabled: True
+    node_affinity:
+      enabled: False
+      preference: node-lifecycle
+      spot:
+        weight: 70
+      od:
+        weight: 30
+  
+  ingress:
+    istio: 
+      enabled: False
+      inject:
+        deployment: False
+      gateway: istio-system/public-gateway
+      match:
+        uri:
+          prefix: /
+      retries:
+        attempts: 5
+      perTryTimeout: 30s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream,reset,resource-exhausted,unavailable,cancelled
+    nginx:
+      enabled: False
+    kong:
+      enabled: False
+
+  #! Recomendations: https://github.com/zegl/kube-score/blob/master/README_PROBES.md
+  readiness:
+    enabled: True
+    initial:
+      delay:
+        seconds: 10
+    period:
+      seconds: 10
+    timeout:
+      seconds: 5
+    failure:
+      threshold: 3
+    httpGet:
+      port: 1337
+      path: /
+
+  #! Recomendations: https://github.com/zegl/kube-score/blob/master/README_PROBES.md
+  liveness:
+    enabled: True
+    initial:
+      delay:
+        seconds: 10
+    period:
+      seconds: 10
+    timeout:
+      seconds: 5
+    failure:
+      threshold: 3
+    httpGet:
+      port: 1337
+      path: /
+
+  configmap:
+    name: nice-house
+
+  secret:
+    name: nice-house      

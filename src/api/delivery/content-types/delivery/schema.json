@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deliveries",
+  "info": {
+    "singularName": "delivery",
+    "pluralName": "deliveries",
+    "displayName": "delivery",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "campaign": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::campaign.campaign"
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "approved": {
+      "type": "boolean"
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "user_service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "message": {
+      "type": "text"
+    },
+    "time": {
+      "type": "time"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "sent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "isVideo": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chats",
+  "info": {
+    "singularName": "chat",
+    "pluralName": "chats",
+    "displayName": "chat"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "campaign": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::campaign.campaign"
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "user_service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "sent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "message": {
+      "type": "text"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

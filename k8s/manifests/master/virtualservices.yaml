@@ -1,0 +1,39 @@
+#@ load("@ytt:data", "data")
+#@ load("helpers.lib.yaml", "namespace", "labels", "secret_annotations")
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: #@ data.values.app.configmap.name
+  namespace: #@ namespace()
+  labels: #@ labels("app")
+spec:
+  gateways:
+  - istio-system/public-gateway
+  hosts:
+  - yakult.x-apps.services
+  - www.yakult.x-apps.services
+  http:
+  - corsPolicy:
+      allowCredentials: true
+      allowHeaders:
+      - X-Auth-Token
+      allowMethods:
+      - GET
+      - POST
+      - OPTIONS
+      - PUT
+      - PATCH
+      - DELETE
+      maxAge: 1m
+    match:
+    - uri:
+        prefix: /
+    retries:
+      attempts: 5
+      perTryTimeout: 30s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream,reset,resource-exhausted,unavailable,cancelled
+    route:
+    - destination:
+        host: yakult-api.projetos.svc.cluster.local
+        port:
+          number: 80

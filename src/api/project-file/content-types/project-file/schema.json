@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects_files",
+  "info": {
+    "singularName": "project-file",
+    "pluralName": "projects-files",
+    "displayName": "projects files",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "campaign": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::campaign.campaign"
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}
